@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Follower Tracker</title>
+<style>
+  :root {
+    --bg: #0f172a;
+    --card: #1e293b;
+    --accent: #38bdf8;
+    --text: #e2e8f0;
+    --muted: #94a3b8;
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+
+  body {
+    margin: 0;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--bg);
+    font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+    color: var(--text);
+  }
+
+  .card {
+    background: var(--card);
+    border-radius: 12px;
+    padding: 2rem;
+    width: 90%;
+    max-width: 420px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+    text-align: center;
+  }
+
+  h1 {
+    margin: 0 0 0.5rem;
+    font-size: 1.4rem;
+  }
+
+  p.subtitle {
+    margin: 0 0 1.5rem;
+    color: var(--muted);
+    font-size: 0.9rem;
+  }
+
+  button {
+    background: var(--accent);
+    color: #0f172a;
+    border: none;
+    border-radius: 8px;
+    padding: 0.75rem 1.5rem;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: opacity 0.15s ease;
+  }
+
+  button:hover {
+    opacity: 0.85;
+  }
+
+  #log {
+    margin-top: 1.5rem;
+    text-align: left;
+    background: #0f172a;
+    border-radius: 8px;
+    padding: 1rem;
+    font-family: "SF Mono", Consolas, monospace;
+    font-size: 0.85rem;
+    min-height: 60px;
+    white-space: pre-wrap;
+    color: #a3e635;
+  }
+</style>
+</head>
+<body>
+
+<div class="card">
+  <h1>Follower Tracker</h1>
+  <p class="subtitle">Runs the autostart check on your X and WhatsApp links</p>
+  <button id="runBtn">Run autostart</button>
+  <div id="log">Waiting to run...</div>
+</div>
+
+<script>
+  let twitterapi = "x.com";
+  let whatsappapi = "https://whatsapp.com";
+
+  let user = "x.com/@businessupdatez";
+  let whatsappurl = "https://whatsapp.com/channel/0029Vb8wre3KbYMUWU4Efx1x";
+
+  let netfollows = 0;
+
+  const logEl = document.getElementById("log");
+
+  function log(message) {
+    console.log(message);
+    logEl.textContent += (logEl.textContent === "Waiting to run..." ? "" : "\n") + message;
+  }
+
+  function autostartbutton() {
+    logEl.textContent = "";
+
+    if (user.includes(twitterapi)) {
+      netfollows += 10;
+      log("X " + netfollows);
+    }
+    if (whatsappurl.includes(whatsappapi)) {
+      netfollows += 10;
+      log("WhatsApp " + netfollows);
+    } else {
+      log("Unknown platform");
+    }
+  }
+
+  document.getElementById("runBtn").addEventListener("click", autostartbutton);
+</script>
+
+</body>
+</html>
